@@ -1,0 +1,9 @@
+function dummy = BayesClassifier (tr_ser, test_set)
+
+    if (size(test_set, 2) >= (size(tr_ser, 2)-1))
+       error('Data set dimensions not valid');
+    end
+    a=find(tr_ser > 0);
+    b=find(test_ser > 0);
+    if (isempty(a) && isempty(b))
+end
