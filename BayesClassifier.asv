@@ -1,9 +1,23 @@
-function dummy = BayesClassifier (tr_ser, test_set)
+function  =  BayesClassifier(ts_set, P_xw, P_w, arg)
 
-    if (size(test_set, 2) >= (size(tr_ser, 2)-1))
-       error('Data set dimensions not valid');
+%Get size of test set
+[r, c] = size(ts_set);
+
+P_wx = zeros(1,arg.N_lev(c));
+temp = zeros(1,c-1);
+probability=zeros(1,r);
+
+for o=1:r   %observation
+    for k=1:arg.N_lev(c)   %class
+        for i=1:c-1      %variable
+            temp(i)=P_xw{i}(ts_set(o,i),k);
+        end
+        P_wx(k)=prod(temp);
     end
-    a=find(tr_ser > 0);
-    b=find(test_ser > 0);
-    if (isempty(a) && isempty(b))
+    P_wx = (P_wx.*P_w);
+    P_wx = P_wx / sum(P_wx(:));
+end
+
+[probability(r), index] = max(P_eh);
+
 end
