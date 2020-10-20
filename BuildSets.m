@@ -1,4 +1,4 @@
-function [train_set, test_set,arg] = BuildSets (address)
+function [train_set, test_set,arg_levNum] = BuildSets (address)
 %% Error ceck
 
 %Check if file address exists
@@ -16,19 +16,16 @@ end
 
 data = importdata('Data.txt');
 [ n, m ] = size(data.data);
-arg.N = 0;
 
 %% Initialization and Evaluation of structure arg
-%   arg -  N               number of different attributes
-%          N_lev(i)        amount of different level for each attribute
-%                           i = attributes
-%
+%   arg_levNum              amount of different level for each attribute
+%                               i = attributes
 
+arg_levNum = zeros(1,m);
 
 %count how many levels in a Attribute
 for i=1:m
-    arg.N = arg.N + 1;
-    arg.N_lev(i) = max(unique(data.data(:,i)));
+    arg_levNum(i) = max(unique(data.data(:,i)));
 end
 
 k = randperm(n);
