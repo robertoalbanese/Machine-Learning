@@ -18,7 +18,7 @@ for o=1:r   %observation
         P_wx(k)=prod(temp);
     end
     P_wx = (P_wx.*P_w);
-    P_wx = P_wx / sum(P_wx)
+    P_wx = P_wx / sum(P_wx);
     
     [max_prob(o), index] = max(P_wx);
     decision(o) = index;
