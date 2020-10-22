@@ -21,7 +21,7 @@ end
 % k = classes
 N_w = zeros(1:arg_levNum(c));
 
-% P_wx {i}(j;k) =    vectors of matrices containing the probabilities of each
+% P_wx {i}(j;k) =   vectors of matrices containing the probabilities of each
 %                   level of the attributes
 % i = attributes
 % j = levels

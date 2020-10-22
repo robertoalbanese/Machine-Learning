@@ -13,13 +13,16 @@ for i=1:count
 [train_set, test_set,arg_levNum] = BuildSets ('Data.txt');
 
     if (mode == "Normal")
-        %Training the Bayes classificator with a training set
+        %Training the Bayes classificator with a training set (no Laplace
+        %smoothing)
         [P_xw, P_w] = TrainBayesClassifier(train_set, test_set, arg_levNum);
     elseif (mode == "Laplace")
+        %Training the Bayes classificator with a training set (Laplace
+        %smoothing)
         [P_xw, P_w] = TrainBayesClassifierLaplaceSmoothing (train_set, test_set, arg_levNum);
     end
     
-    %Bayesclassifies operating with test set
+    %Bayes classification operating with test set
     [decision, err(i)] = BayesClassifier(test_set, P_xw, P_w, arg_levNum);
     
     %Display the result of the classifier w.r.t. the prevision
