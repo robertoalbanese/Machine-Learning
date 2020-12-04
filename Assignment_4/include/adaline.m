@@ -53,7 +53,7 @@ mat = zeros(2,2);
 for i = 1:size(c_mat,2)
     mat = mat + cell2mat(c_mat(i));
 end
-mat = round(mat/size(c_mat,2));
+mat = ceil(mat/size(c_mat,2));
 confusionchart(mat);
 
 end

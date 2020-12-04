@@ -72,6 +72,4 @@ end
 mat = ceil(mat/size(c_mat,2));
 confusionchart(mat);
 
-
-
 end
