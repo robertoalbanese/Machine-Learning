@@ -1,51 +1,56 @@
 % Adaline function
-function [train_set, test_set] = adaline(set, eta, k)
-    % extrac dimensions of set
-    n = size(set,1);
-    d = size(set,2) - 1;
-    % randomize set
-    idx = randperm(n);
-    set = set(idx,:);
-    % init train and test and variable iterations
-    train_set = [];
-    test_set = [];
-    iterations = 0;
-    % Check if k is consistency 
-    if (k < 2 || k > n)
-        msg = ('k < 2 or k > n(size set)');
-        error(msg);
-    end
-    
-    %% Training Phase
-    if k == 2
-        train_set = set(1:(size(set,1))/2,:);
-        test_set = set((size(set,1)/2)+1 : end , :);
+function adaline(train_set, test_set, eta)
+   % extrac dimensions of set
+d = size(cell2mat(train_set(1)),2) - 1;
 
-        w = zeros(1,d)'; %initialization weights vector randomly
-        %init of error to 1
-        err = 1;
-        while(err > 0.05 && iterations < 10000)
-            for j = 1:size(train_set,1) 
-                    r = train_set(j,1:end -1) * w;
-                    delta = (train_set(j,end) - r);
-                    dw = eta*delta*train_set(j,1:end - 1)';
-                    w = w + dw;
-                    
-                    a(j) = sign(r);
-            end
-            iterations = iterations +1;
-            err = immse(train_set(:,end),a');
+% init train and test and variable iterations
+iterations = 0;
+    
+ %% Training Phase
+
+w = rand(1,d)'; %initialization weights vector randomly
+%init of error to 1
+err = 1;
+for i = 1:size(train_set,2)
+while( err > 0.05 && iterations < 1000)
+    
+        for j = 1:size(cell2mat(train_set(i)),1)
+            trainTmp = cell2mat(train_set(i));
+            r = trainTmp(j,1:end -1) * w;
+            
+            
+            delta = (trainTmp(j,end) - r);
+            dw = eta*delta*trainTmp(j,1:end - 1)';
+            w = w + dw;
+            al(j) = sign(r);
+            r1(j) = r;
+            
         end
+        iterations = iterations +1;
+        err = abs(trainTmp(:,end) - al);
+        err = mean(err,'all');
     end
+end
+
+
     
-    %% Test phase
-    
-    for j = 1:size(test_set,1) 
-                    r = test_set(j,1:end -1) * w;
-                    a(j) = sign(r);
-                    
+%% Test phase
+
+for i = 1:size(test_set,2)
+    for j = 1:size(cell2mat(test_set(i)),1)
+        testTmp = cell2mat(test_set(i));
+        r = testTmp(j,1:end -1) * w;
+        a(j) = sign(r);
+        
     end
-    c_mat = confusionmat(test_set(:,end),a);
-    confusionchart(c_mat);  
+    c_mat{i} = confusionmat(testTmp(:,end),a);
+end
+%c_mat = confusionmat(testTmp(:,end),a);
+mat = zeros(2,2);
+for i = 1:size(c_mat,2)
+   mat = mat + cell2mat(c_mat(i)); 
+end    
+mat = round(mat/size(c_mat,2));
+confusionchart(mat); 
     
 end
