@@ -14,7 +14,7 @@ n = size(dataset,1);
 eta2 = 0.0005; %used for Adaline algorithm
 eta1 = 2; %used for Perceptron algorithm
 k1 = n;
-k2 = 2;
-[train_set, test_set] = partition(dataset,k1);
-perceptron(train_set,train_set, eta1);
-%adaline(train_set, test_set, eta2);
+k2 = 4;
+[train_set, test_set] = partition(dataset,k2);
+%perceptron(train_set,test_set, eta1);
+adaline(train_set, test_set, eta2);

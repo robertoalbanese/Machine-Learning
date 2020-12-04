@@ -15,8 +15,8 @@ if k<=(n/2)
     for i = 1 : k
         % Remove xl from set for n times
         trainTmp = set;
-        testTmp = set(round(1+(((i-1)*n)/k)):min(((i*n)/k),n),:);
-        trainTmp(round(1+(((i-1)*n)/k)):min(((i*n)/k),n),:) = [];
+        testTmp = set(round(1+(((i-1)*n)/k)):min(floor((i*n)/k),n),:);
+        trainTmp(round(1+(((i-1)*n)/k)):min(floor((i*n)/k),n),:) = [];
         test_set{i}= testTmp;
         train_set{i} = trainTmp;
         b=b+1;
@@ -26,8 +26,8 @@ if k>(n/2)
     for i = 1 : k
         % Remove xl from set for n times
         trainTmp = set;
-        testTmp = set(round(1+(((i-1)*n)/k)):min(round(1+(((i-1)*n)/k))+rem(n,k),n),:);
-        trainTmp(round(1+(((i-1)*n)/k)):min(round(1+(((i-1)*n)/k))+rem(n,k),n),:) = [];
+        testTmp = set(round(1+(((i-1)*n)/k)):min(floor(1+(((i-1)*n)/k))+rem(n,k),n),:);
+        trainTmp(round(1+(((i-1)*n)/k)):min(floor(1+(((i-1)*n)/k))+rem(n,k),n),:) = [];
         test_set{i}= testTmp;
         train_set{i} = trainTmp;
         a=a+1;
