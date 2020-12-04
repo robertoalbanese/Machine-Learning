@@ -54,6 +54,7 @@ for i = 1:size(c_mat,2)
     mat = mat + cell2mat(c_mat(i));
 end
 mat = ceil(mat/size(c_mat,2));
+figure;
 confusionchart(mat);
 
 end
