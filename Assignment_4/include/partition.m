@@ -9,9 +9,13 @@ end
 % randomize the set
 idx = randperm(n);
 set = set(idx,:);
-a=0;
-b=0;
-if k<=(n/2)
+
+if k == 2
+trainTmp = set;
+testTmp = set((size(set,1)/2)+1:end,:);
+trainTmp((size(set,1)/2)+1:end,:) = [];
+end
+if 2<k<=(n/2)
     for i = 1 : k
         % Remove xl from set for n times
         trainTmp = set;
@@ -19,7 +23,6 @@ if k<=(n/2)
         trainTmp(round(1+(((i-1)*n)/k)):min(floor((i*n)/k),n),:) = [];
         test_set{i}= testTmp;
         train_set{i} = trainTmp;
-        b=b+1;
     end
 end
 if k>(n/2)
@@ -30,6 +33,5 @@ if k>(n/2)
         trainTmp(round(1+(((i-1)*n)/k)):min(floor(1+(((i-1)*n)/k))+rem(n,k),n),:) = [];
         test_set{i}= testTmp;
         train_set{i} = trainTmp;
-        a=a+1;
     end 
 end
