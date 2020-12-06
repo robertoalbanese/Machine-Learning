@@ -1,9 +1,9 @@
 % Adaline function
-function adaline(train_set, test_set, eta)
+function [mat] = adaline(train_set, test_set, eta)
 % extrac dimensions of set
 d = size(cell2mat(train_set(1)),2) - 1;
 
-% init train and test and variable iterations
+% init train and test andz variable iterations
 iterations = 0;
 
 %% Training Phase

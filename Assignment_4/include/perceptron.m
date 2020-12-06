@@ -1,5 +1,5 @@
 % Percpetron function
-function perceptron(train_set,test_set, eta)
+function [mat] = perceptron(train_set,test_set, eta)
 % extrac dimensions of set
 d = size(cell2mat(train_set(1)),2) - 1;
 
