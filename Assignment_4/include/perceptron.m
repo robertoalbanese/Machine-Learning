@@ -1,5 +1,5 @@
 % Percpetron function
-function [mat, iterations] = perceptron(train_set,test_set, eta)
+function [mat, iterations] = perceptron(train_set,test_set, eta,labels)
 % extrac dimensions of set
 d = size(cell2mat(train_set(1)),2) - 1;
 
@@ -43,7 +43,7 @@ for i = 1:size(test_set,2)
         r = testTmp(j,1:end -1) * w;
         a(j) = sign(r);
     end
-    c_mat{i} = confusionMat(testTmp,c_mat{i},a);
+    c_mat{i} = confusionMat(testTmp,c_mat{i},a,labels);
     a = [];
 end
 close(h)

@@ -1,21 +1,23 @@
 function [train_set, test_set] = partition(set,k)
 
 n=size(set,1);
-% Check if k is consistency 
+% Check if k is consistency
 if (k < 2 || k > n)
-        msg = ('k < 2 or k > n(size set)');
-        error(msg);
+    msg = ('k < 2 or k > n(size set)');
+    error(msg);
 end
 % randomize the set
 idx = randperm(n);
 set = set(idx,:);
 
 if k == 2
-trainTmp = set;
-testTmp = set((size(set,1)/2)+1:end,:);
-trainTmp((size(set,1)/2)+1:end,:) = [];
+    trainTmp = set;
+    testTmp = set((size(set,1)/2)+1:end,:);
+    trainTmp((size(set,1)/2)+1:end,:) = [];
+    test_set{1}= testTmp;
+    train_set{1} = trainTmp;
 end
-if 2<k<=(n/2)
+if k>2 && k<=(n/2)
     for i = 1 : k
         % Remove xl from set for n times
         trainTmp = set;
@@ -33,5 +35,5 @@ if k>(n/2)
         trainTmp(round(1+(((i-1)*n)/k)):min(floor(1+(((i-1)*n)/k))+rem(n,k),n),:) = [];
         test_set{i}= testTmp;
         train_set{i} = trainTmp;
-    end 
+    end
 end

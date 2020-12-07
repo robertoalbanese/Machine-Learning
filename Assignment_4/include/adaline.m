@@ -1,5 +1,5 @@
 % Adaline function
-function [mat,iterations] = adaline(train_set, test_set, eta)
+function [mat,iterations] = adaline(train_set, test_set, eta,labels)
 % extrac dimensions of set
 d = size(cell2mat(train_set(1)),2) - 1;
 
@@ -18,7 +18,7 @@ for i = 1:size(train_set,2)
     norma = 1;
     waitbar(i/size(train_set,2),h)
     %while( err > 0.05 && iterations < 10000)
-     while( norma > 0.0004)
+     while( norma > 0.001)
         for j = 1:size(cell2mat(train_set(i)),1)
             trainTmp = cell2mat(train_set(i));
             r = trainTmp(j,1:end -1) * w;
@@ -30,11 +30,12 @@ for i = 1:size(train_set,2)
             w = w + dw;
             a1(j) = sign(r);
             r1(j) = r;
+            prev_disc_av = disc_av;
             
         end
         iterations = iterations +1;
-        err = abs(trainTmp(:,end) - r1);
-        err = mean(err,'all');
+%         err = abs(trainTmp(:,end) - r1);
+%         err = mean(err,'all');
     end
 end
 close(h)
@@ -43,7 +44,7 @@ close(h)
 %% Test phase
 
 for i = 1:size(test_set,2)
-    c_mat{i} = zeros(2);
+    c_mat{i} = zeros(size(labels,1));
     for j = 1:size(cell2mat(test_set(i)),1)
         testTmp = cell2mat(test_set(i));
         r = testTmp(j,1:end -1) * w;
@@ -51,7 +52,7 @@ for i = 1:size(test_set,2)
         
     end
     %c_mat{i} = confusionmat(testTmp(:,end),a);
-    c_mat{i} = confusionMat(testTmp,c_mat{i},a);
+    c_mat{i} = confusionMat(testTmp,c_mat{i},a,labels);
     a = [];
 end
 %c_mat = confusionmat(testTmp(:,end),a);
