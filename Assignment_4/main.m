@@ -5,7 +5,8 @@ close all;
 clear all;
 
 addpath('include','inputs');
-%Load dataset 
+
+%% Load dataset
 % [train_set, train_lb] = loadMNIST(0);
 % [test_set, test_lb] = loadMNIST(1);
 % dataset = [ train_set   train_lb;
@@ -25,13 +26,13 @@ k2 = 2;
 k3 = 6;
 
 %% Learning phase and Confusion matrix computation for iris/MNIST dataset
-% [train_set, test_set] = partition(dataset,k3);
-% c_mat_per = perceptron(train_set,test_set, eta1);
-%c_mat_ad = adaline(train_set, test_set, eta2);
+% [train_set, test_set] = partition(dataset,k2);
+% [c_mat_per,iterations] = perceptron(train_set,test_set, eta1);
+% [c_mat_ad, iterations] = adaline(train_set, test_set, eta2);
 
 %% Learning phase and Confusion matrix computation for xor dataset
-[train_set_xor, test_set_xor] = partition(dataset_xor,4);
-c_mat_per_xor = perceptron(train_set_xor,test_set_xor, eta1);
-%c_mat_ad_xor = adaline(train_set_xor, test_set_xor, eta2);
+[train_set_xor, test_set_xor] = partition(dataset_xor,k2);
+% [c_mat_per_xor, iterations] = perceptron(train_set_xor,test_set_xor, eta1);
+[c_mat_ad_xor, iterations] = adaline(train_set_xor, test_set_xor, eta2);
 
-[accuracy,err_freq,sensitivity,specificity,F_measure]  = qualityIndices(c_mat_per_xor,n_xor);
+%[accuracy,err_freq,sensitivity,specificity,F_measure]  = qualityIndices(c_mat_per_xor,n_xor);
