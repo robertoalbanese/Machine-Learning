@@ -14,6 +14,7 @@ w = rand(1,d)'; %initialization weights vector randomly
 err = 1;
 h = waitbar(0,'Please wait...');
 for i = 1:size(train_set,2)
+    %Perceptron algorithm
     while( err > 0.05 && iterations < 1000)
         waitbar(i/size(train_set,2),h)
         for j = 1:size(cell2mat(train_set(i)),1)
@@ -37,7 +38,7 @@ end
 %% Test phase
 
 for i = 1:size(test_set,2)
-    c_mat{i} = zeros(2);
+    c_mat{i} = zeros(size(labels,1));
     for j = 1:size(cell2mat(test_set(i)),1)
         testTmp = cell2mat(test_set(i));
         r = testTmp(j,1:end -1) * w;
@@ -48,7 +49,8 @@ for i = 1:size(test_set,2)
 end
 close(h)
 
-mat = zeros(2,2);
+%Setting up average confusion matrix
+mat = zeros(size(labels,1));
 for i = 1:size(c_mat,2)
     mat = mat + cell2mat(c_mat(i));
 end

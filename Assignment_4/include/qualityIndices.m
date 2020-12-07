@@ -1,3 +1,4 @@
+%% Computation of quality indices
 function [accuracy,err_freq,sensitivity,specificity,F_measure] = qualityIndices(C,n)
 
 accuracy=trace(C)/n;
