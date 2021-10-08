@@ -11,11 +11,11 @@ labels = (unique(train_labels));
 % Training Parameters
 trials = 2;
 hl = 1;
-% Initialize vectors of pattern
+% Initialize 2 vectors for storing labels values.
 X = zeros(1,trials);
 Y = zeros(1,trials);
-for i = 1 : trials
-    while (X(i) == Y(i))
+for i = 1 : trials 
+    while (X(i) == Y(i))% N.B. The 2 vectors must not have same values 
         X(i) = randi(numel(labels));
         Y(i) = randi(numel(labels));
     end
@@ -24,12 +24,12 @@ end
 figure
 for j = 1 : trials
     subplot(floor(trials/2), 2, j)
-    % Create a training set with only 2 classes
-    train_trio = train_data(train_labels(:,1) == X(j) | train_labels(:,1) == Y(j), :);
+    % Create a training set with only 2 DIFFERENT classes
+    train_subset = train_data(train_labels(:,1) == X(j) | train_labels(:,1) == Y(j), :);
     % Train an autoencoder on the new, reduced training set
-    myAutoencoder = trainAutoencoder(train_trio', hl);
+    myAutoencoder = trainAutoencoder(train_subset', hl);
     % Encode the different classes using the encoder obtained
-    myEncodedData = encode(myAutoencoder, train_trio');
+    myEncodedData = encode(myAutoencoder, train_subset');
     % Plot data using plotcl
     subplot(2,2,j), hold on
     plotcl(myEncodedData', train_labels(train_labels(:,1) == X(j) | train_labels(:,1) == Y(j)));
