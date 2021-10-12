@@ -1,4 +1,4 @@
-# MachineLearning - Robotics Engineering 2020/2021
+# Machine Learning - Robotics Engineering 2020/2021
 Repository for Machine Learning Exercises
 
 * [Assignment 1](https://github.com/robertoalbanese/Machine-Learning/tree/master/Assignment_1) - Naive Bayes Classifier
